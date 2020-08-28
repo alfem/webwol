@@ -1,19 +1,21 @@
+// WebWol
+// Author: Alfonso de Cala <alfonso@el-magnifico.org>
+// Requires ESPAsyncWebServer and WakeOnLan
+
+// Set up your network credentials
+const char* ssid = "SSID";
+const char* password = "PASSWORD";
+
+
 #include <WiFi.h>
 #include <WiFiUdp.h>
-
 #include <WakeOnLan.h>
-
-WiFiUDP UDP;
-WakeOnLan WOL(UDP);
-
-// Import required libraries
 #include "WiFi.h"
 #include "ESPAsyncWebServer.h"
 #include "SPIFFS.h"
 
-// Replace with your network credentials
-const char* ssid = "WLAN_15";
-const char* password = "guillermomola";
+WiFiUDP UDP;
+WakeOnLan WOL(UDP);
 
 // Set LED GPIO
 const int ledPin = 2;
