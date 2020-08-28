@@ -5,6 +5,10 @@
 // Set up your network credentials
 const char* ssid = "SSID";
 const char* password = "PASSWORD";
+// Define the MACs to wake up
+const char *MACAddress1 = "02:23:45:67:89:AB";
+const char *MACAddress2 = "03:23:45:67:89:AB";
+const char *secureOn2 = "FE:DC:BA:98:76:54";
 
 
 #include <WiFi.h>
@@ -73,8 +77,7 @@ void setup(){
     Serial.println("Waking up PC 1");
 
     digitalWrite(ledPin, HIGH);    
-    const char *MACAddress = "01:23:45:67:89:AB";
-    WOL.sendMagicPacket(MACAddress); 
+    WOL.sendMagicPacket(MACAddress1); 
     State="OK 1";
     request->send(SPIFFS, "/index.html", String(), false, processor);
     digitalWrite(ledPin, LOW);        
@@ -86,9 +89,7 @@ void setup(){
   server.on("/wol2", HTTP_GET, [](AsyncWebServerRequest *request){
     Serial.println("Waking up PC 2");
     digitalWrite(ledPin, HIGH);    
-    const char *MACAddress = "01:23:45:67:89:AB";
-    const char *secureOn = "FE:DC:BA:98:76:54";
-    WOL.sendSecureMagicPacket(MACAddress, secureOn); 
+    WOL.sendSecureMagicPacket(MACAddress2, secureOn2); 
     State="OK 2";
     digitalWrite(ledPin, LOW);        
     request->send(SPIFFS, "/index.html", String(), false, processor);
